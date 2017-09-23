@@ -54,8 +54,8 @@ int main (int argc, char **argv) {
     redisAeAttach(loop, c);
     redisAsyncSetConnectCallback(c,connectCallback);
     redisAsyncSetDisconnectCallback(c,disconnectCallback);
-    redisAsyncCommand(c, NULL, NULL, "SET key %b", argv[argc-1], strlen(argv[argc-1]));
-    redisAsyncCommand(c, getCallback, (char*)"end-1", "GET key");
+    redisAsyncCommand(c, NULL, NULL, "SET Tushar %b", argv[argc-1], strlen(argv[argc-1]));
+    redisAsyncCommand(c, getCallback, (char*)"end-1", "GET Tushar");
     aeMain(loop);
     return 0;
 }
