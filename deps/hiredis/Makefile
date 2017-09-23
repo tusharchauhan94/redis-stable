@@ -8,7 +8,7 @@ EXAMPLES=hiredis-example hiredis-example-libevent hiredis-example-libev hiredis-
 TESTS=hiredis-test
 LIBNAME=libhiredis
 PKGCONFNAME=hiredis.pc
-
+AE_DIR?=../../src
 HIREDIS_MAJOR=$(shell grep HIREDIS_MAJOR hiredis.h | awk '{print $$3}')
 HIREDIS_MINOR=$(shell grep HIREDIS_MINOR hiredis.h | awk '{print $$3}')
 HIREDIS_PATCH=$(shell grep HIREDIS_PATCH hiredis.h | awk '{print $$3}')
@@ -102,14 +102,14 @@ hiredis-example-ivykis: examples/example-ivykis.c adapters/ivykis.h $(STLIBNAME)
 hiredis-example-macosx: examples/example-macosx.c adapters/macosx.h $(STLIBNAME)
 	$(CC) -o examples/$@ $(REAL_CFLAGS) $(REAL_LDFLAGS) -I. $< -framework CoreFoundation $(STLIBNAME)
 
-ifndef AE_DIR
-hiredis-example-ae:
-	@echo "Please specify AE_DIR (e.g. <redis repository>/src)"
-	@false
-else
+#ifndef AE_DIR
+#hiredis-example-ae:
+#	@echo "Please specify AE_DIR (e.g. <redis repository>/src)"
+#	@false
+#else
 hiredis-example-ae: examples/example-ae.c adapters/ae.h $(STLIBNAME)
 	$(CC) -o examples/$@ $(REAL_CFLAGS) $(REAL_LDFLAGS) -I. -I$(AE_DIR) $< $(AE_DIR)/ae.o $(AE_DIR)/zmalloc.o $(AE_DIR)/../deps/jemalloc/lib/libjemalloc.a -pthread $(STLIBNAME)
-endif
+#endif
 
 ifndef LIBUV_DIR
 hiredis-example-libuv:
